@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Records</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            min-height: 100vh;
+            color: #000033;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 40px;
+            border: 2px solid #000033;
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            color: #000033;
+            margin-bottom: 30px;
+            font-variant: small-caps;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #000033;
+        }
+
+        .btn {
+            background: #000033;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-family: 'Times New Roman', serif;
+            font-size: 16px;
+        }
+
+        .error-message {
+            color: #8b0000;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+            font-style: italic;
+        }
+
+        .marksheet {
+            display: none;
+            background: #fff;
+            padding: 40px;
+            border: 2px solid #000033;
+            margin-top: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px double #000033;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-variant: small-caps;
+        }
+
+        .student-info {
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border-bottom: 1px solid #000033;
+            padding-bottom: 10px;
+        }
+
+        .semester {
+            margin-bottom: 30px;
+        }
+
+        .semester h3 {
+            color: #000033;
+            margin-bottom: 10px;
+            font-variant: small-caps;
+            border-bottom: 1px solid #000033;
+            padding-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #000033;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .gpa {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 16px;
+            border-top: 2px solid #000033;
+            padding-top: 10px;
+        }
+
+        .certificate {
+            display: none;
+            background: #fff;
+            padding: 40px;
+            border: 2px solid #000033;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .certificate .seal {
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+            border: 2px solid #000033;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            text-align: center;
+            font-variant: small-caps;
+            line-height: 1.2;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 60px;
+            opacity: 0.1;
+            pointer-events: none;
+            font-variant: small-caps;
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .container {
+                padding: 0;
+            }
+            .marksheet, .certificate {
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container" id="loginForm">
+            <h2>Academic Records Portal</h2>
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Enter username">
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter password">
+            </div>
+            <button class="btn" onclick="login()">Access Records</button>
+            <p class="error-message" id="errorMessage">Invalid credentials</p>
+        </div>
+
+        <div class="marksheet" id="marksheet">
+            <div class="header">
+                <h1>Official Academic Transcript , ARU Cambridge</h1>
+                <p>Bachelor of Engineering in Computer Science</p>
+                <p>Academic Years 2021-2023</p>
+            </div>
+
+            <div class="student-info">
+                <p><strong>Student Name:</strong> Sushant Shekhar</p>
+                <p><strong>Registration Number:</strong>2027126</p>
+                <p><strong>Date of Issue:</strong> March 4, 2024</p>
+            </div>
+
+            <div class="semester">
+                <h3>Semester I</h3>
+                <table>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
+                        <th>Credits</th>
+                        <th>Grade Points (5.0)</th>
+                    </tr>
+                    <tr><td>MAT101</td><td>Mathematics I</td><td>4</td><td>4.5</td></tr>
+                    <tr><td>PHY101</td><td>Physics for Computer Science</td><td>4</td><td>4.3</td></tr>
+                    <tr><td>CSE101</td><td>Introduction to Programming</td><td>4</td><td>4.5</td></tr>
+                    <tr><td>CSE102</td><td>Digital Logic</td><td>3</td><td>4.0</td></tr>
+                    <tr><td>ENG101</td><td>Professional Communication</td><td>2</td><td>4.5</td></tr>
+                    <tr><td>MEC101</td><td>Engineering Drawing</td><td>2</td><td>4.0</td></tr>
+                </table>
+                <p>Semester GPA: 4.3</p>
+            </div>
+
+            <div class="semester">
+                <h3>Semester II</h3>
+                <table>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
+                        <th>Credits</th>
+                        <th>Grade Points (5.0)</th>
+                    </tr>
+                    <tr><td>MAT201</td><td>Mathematics II</td><td>4</td><td>4.3</td></tr>
+                    <tr><td>CSE201</td><td>Data Structures</td><td>4</td><td>4.0</td></tr>
+                    <tr><td>CSE202</td><td>Object-Oriented Programming</td><td>4</td><td>4.5</td></tr>
+                    <tr><td>ELE201</td><td>Electric Circuits</td><td>3</td><td>3.8</td></tr>
+                    <tr><td>MAT202</td><td>Discrete Mathematics</td><td>3</td><td>4.3</td></tr>
+                    <tr><td>HUM201</td><td>Engineering Ethics</td><td>2</td><td>4.5</td></tr>
+                </table>
+                <p>Semester GPA: 4.2</p>
+            </div>
+
+            [Similar tables for Semesters III through VI with appropriate course codes and grades]
+
+            <div class="semester">
+                <h3>Semester III</h3>
+                <table>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
+                        <th>Credits</th>
+                        <th>Grade Points (5.0)</th>
+                    </tr>
+                    <tr><td>CSE301</td><td>Design and Analysis of Algorithms</td><td>4</td><td>4.0</td></tr>
+                    <tr><td>CSE302</td><td>Computer Architecture</td><td>4</td><td>4.3</td></tr>
+                    <tr><td>CSE303</td><td>Operating Systems</td><td>4</td><td>4.5</td></tr>
+                    <tr><td>CSE304</td><td>Database Management Systems</td><td>4</td><td>4.5</td></tr>
+                    <tr><td>MAT301</td><td>Probability and Statistics</td><td>3</td><td>4.0</td></tr>
+                    <tr><td>CSE305</td><td>Web Technologies</td><td>3</td><td>4.5</td></tr>
+                </table>
+                <p>Semester GPA: 4.3</p>
+            </div>
+
+            <div class="semester">
+                <h3>Semester IV</h3>
+                <table>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
+                        <th>Credits</th>
+                        <th>Grade Points (5.0)</th>
+                    </tr>
+                    <tr><td>CSE401</td><td>Computer Networks</td><td>4</td><td>4.3</td></tr>
+                    <tr><td>CSE402</td><td>Software Engineering</td><td>4</td><td>4.0</td></tr>
+                    <tr><td>CSE403</td><td>Theory of Computation</td><td>3</td><td>3.8</td></tr>
+                    <tr><td>CSE404</td><td>Advanced Database Systems</td><td>4</td><td>4.5</td></tr>
+                    <tr><td>CSE405</td><td>Microprocessors and Interfacing</td><td>3</td><td>4.0</td></tr>
+                    <tr><td>ENG401</td><td>Technical Writing and Research Methods</td><td>2</td><td>4.5</td></tr>
+                </table>
+                <p>Semester GPA: 4.2</p>
+            </div>
+
+            <div class="semester">
+                <h3>Semester V</h3>
+                <table>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
+                        <th>Credits</th>
+                        <th>Grade Points (5.0)</th>
+                    </tr>
+                    <tr><td>CSE501</td><td>Artificial Intelligence and Machine Learning</td><td>4</td><td>4.5</td></tr>
+                    <tr><td>CSE502</td><td>Cloud Computing</td><td>4</td><td>4.3</td></tr>
+                    <tr><td>CSE503</td><td>Information Security</td><td>4</td><td>4.0</td></tr>
+                    <tr><td>CSE504</td><td>Mobile Application Development</td><td>3</td><td>4.5</td></tr>
+                    <tr><td>CSE505</td><td>Computer Graphics</td><td>3</td><td>4.0</td></tr>
+                    <tr><td>MGT501</td><td>Project Management</td><td>2</td><td>4.5</td></tr>
+                </table>
+                <p>Semester GPA: 4.3</p>
+            </div>
+
+            <div class="semester">
+                <h3>Semester VI</h3>
+                <table>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
+                        <th>Credits</th>
+                        <th>Grade Points (5.0)</th>
+                    </tr>
+                    <tr><td>CSE601</td><td>Distributed Systems</td><td>4</td><td>4.3</td></tr>
+                    <tr><td>CSE602</td><td>Internet of Things (IoT)</td><td>4</td><td>4.5</td></tr>
+                    <tr><td>CSE603</td><td>Big Data Analytics</td><td>4</td><td>4.0</td></tr>
+                    <tr><td>CSE604</td><td>Software Testing and Quality Assurance</td><td>3</td><td>4.5</td></tr>
+                    <tr><td>CSE605</td><td>Capstone Project</td><td>6</td><td>4.5</td></tr>
+                    <tr><td>HUM601</td><td>Professional Ethics</td><td>2</td><td>4.3</td></tr>
+                </table>
+                <p>Semester GPA: 4.4</p>
+            </div>   
+
+
+
+        
+
+            <div class="gpa">
+                <p>Cumulative Grade Point Average (CGPA): 4.1/5.0</p>
+                <p>Total Credits Earned: 140</p>
+            </div>
+
+            <div class="no-print">
+                <button class="btn" onclick="showCertificate()">View Certificate</button>
+                <button class="btn" style="margin-top: 10px;" onclick="logout()">Exit System</button>
+            </div>
+        </div>
+
+        <div class="certificate" id="certificate">
+            <div class="watermark">VERIFIED</div>
+            <h1 style="font-variant: small-caps; margin-bottom: 30px;">Certificate of Completion</h1>
+            <p style="font-size: 18px; margin: 20px 0;">This is to certify that</p>
+            <h2 style="color: #000033; margin: 20px 0;">Sushant Shekhar</h2>
+            <p style="margin: 20px 0; line-height: 1.8;">
+                having fulfilled the requirements prescribed by the Academic Council,<br>
+                has been awarded the degree of<br>
+                <strong style="font-size: 18px;">Bachelor of Engineering in Computer Science</strong><br>
+                with a Cumulative Grade Point Average of 4.1 on a scale of 5.0
+            </p>
+            
+            <div class="seal">
+                ARU<br>Cambridge<br>
+            </div>
+
+            <div style="margin: 40px 0; display: flex; justify-content: space-between;">
+                <div>
+                    <p>Date: March 4, 2024</p>
+                    <p style="margin-top: 40px;">
+                        <span style="font-weight: bold; font-size: 16px;">Isbel Mercado</span><br>
+                        <span style="color: gray; font-size: 14px;">Registrar</span>
+                      </p>
+                </div>
+                <div>
+                    <p>Serial No: 2024/CS/2027126</p>
+                    <p style="margin-top: 40px;">
+                        <span style="font-weight: bold; font-size: 16px;">Cannor Thompson</span><br>
+                        <span style="color: gray; font-size: 14px;">Dean</span>
+                      </p>
+                </div>
+            </div>
+
+            <div class="no-print">
+                <button class="btn" onclick="printCertificate()">Print Certificate</button>
+                <button class="btn" style="margin-top: 10px;" onclick="backToMarksheet()">Return to Transcript</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (username === 's.shekhar' && password === 'Su@2262309') {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('marksheet').style.display = 'block';
+                errorMessage.style.display = 'none';
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        function logout() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('marksheet').style.display = 'none';
+            document.getElementById('certificate').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function showCertificate() {
+            document.getElementById('marksheet').style.display = 'none';
+            document.getElementById('certificate').style.display = 'block';
+        }
+
+        function backToMarksheet() {
+            document.getElementById('marksheet').style.display = 'block';
+            document.getElementById('certificate').style.display = 'none';
+        }
+
+        function printCertificate() {
+            window.print();
+        }
+
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.getElementById('loginForm').style.display !== 'none') {
+                login();
+            }
+        });
+    </script>
+</body>
+</html>
